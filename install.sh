@@ -13,3 +13,6 @@ pip install ipython
 mkdir .venv
 brew cask install visual-studio-code
 brew cask install docker
+
+git config --global user.name "Bhavani Ravi"
+git config --global user.email bhava0895@gmail.com
