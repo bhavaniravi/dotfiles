@@ -17,18 +17,6 @@ mkcd () {
   cd "$1"
 }
 
-# if [ -n "$VIRTUAL_ENV" ]; then
-#	source $VIRTUAL_ENV/bin/activate;
-#fi
-
-#if [[ -n "$TMUX" ]]; then
-#	tmux set-environment VIRTUAL_ENV $VIRTUAL_ENV
-#fi
-
-
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 alias diff="colordiff"
 alias k="kubectl"
 alias mk="minikube kubectl"

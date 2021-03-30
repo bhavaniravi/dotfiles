@@ -7,12 +7,28 @@ rm -fr zsh-syntax-highlighting
 rm -fr zsh-autosuggestions
 
 brew install fzf
-echo "alias python=/usr/local/bin/python3.7" >> ~/.zshrc
+echo "alias python=/usr/local/bin/python3" >> ~/.zshrc
 echo "alias pip=/usr/local/bin/pip3" >> ~/.zshrc
 pip install ipython
 mkdir .venv
+
 brew cask install visual-studio-code
 brew cask install docker
+brew install --cask zoomus
+brew install --cask dbeaver-community
+brew install tmux
+brew install kubectl 
+brew install --cask obsidian
 
 git config --global user.name "Bhavani Ravi"
 git config --global user.email bhava0895@gmail.com
+
+ssh-keygen -t rsa -C "bhava0895@gmail.com"
+
+cat ~/.ssh/id_rsa.pub 
+
+
+cat vscode-extensions.txt | while read extension || [[ -n $extension ]];
+do
+  code --install-extension $extension --force
+done
