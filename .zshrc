@@ -1,10 +1,16 @@
-export ZSH_DISABLE_COMPFIX=true
-
-
+ZSH_DISABLE_COMPFIX=true
+export PATH=${PATH}:"/Users/bhavaniravi/bhava/projects/airflow:/Users/bhavaniravi/.gem/ruby/2.6.0/bin"
 export TERM=xterm-256color
 export FZF_BASE=/usr/local/bin/fzf
-
+# eval "$(pyenv init -)"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+function gpac() {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
+
 pyapp() {
 	mkdir app
 	touch .gitignore
@@ -12,42 +18,74 @@ pyapp() {
 	touch main.py
 }
 
+flaskapp() {
+	mkdir $1
+	cd $1
+	python3 -m venv venv
+	source venv/bin/activate
+	pip install flask
+	touch hello.py
+	echo "
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return '<p>Hello, World!</p>'
+
+
+@app.route('/user/<username>')
+def show_user_profile(username):
+    # show the user profile for that user
+    return f'User {escape(username)}'
+
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return f'Post {post_id}'
+
+if __name__ == '__main__':
+	app.run(port=8000, debug=True)
+" > hello.py
+}
+
+
 mkcd () {
   mkdir "$1"
   cd "$1"
 }
 
+750save(){
+	git add . && git commit -m "add new entry" && git push
+}
+
+# if [ -n "$VIRTUAL_ENV" ]; then
+#	source $VIRTUAL_ENV/bin/activate;
+#fi
+
+#if [[ -n "$TMUX" ]]; then
+#	tmux set-environment VIRTUAL_ENV $VIRTUAL_ENV
+#fi
+
+
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 alias diff="colordiff"
+alias rf="rm -rf"
+alias tf="terraform"
 alias k="kubectl"
-alias mk="minikube kubectl"
-
+#alias mk="minikube kubectl"
+#alias ngrok="/Users/bhavaniravi/Downloads/ngrok"
 alias td='todo.sh'
-alias pyproject="mkdir app
-touch README.md
-echo '*.pyc
-__pycache__
-venv
-.venv
-.vscode
-' > .gitignore 
-touch main.py
-mkdir tests
-touch app/__init__.py
-touch app/app.py
-touch requirements.txt
-venv -p python3 venv
-source venv/bin/activate
-pip install black
-git init
-"
-
 
 # Path to your oh-my-zsh installation.
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-export ZSH="/Users/$USER/.oh-my-zsh"
-# export PATH=$PATH:"/usr/local/bin/python3.7"
-export PATH=$PATH:"/Users/$USER/Library/Python/2.7/bin/"
-# alias python=python3.7
+export ZSH="/Users/bhavaniravi/.oh-my-zsh"
+export PATH=$PATH:"/usr/local/bin/python3.8"
+export PATH=$PATH:"/Users/bhavaniravi/Library/Python/3.8/bin/"
+#alias python=python3
+alias pip=pip3
 export LC_ALL=en_US.UTF-8
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -116,23 +154,9 @@ ZSH_THEME="robbyrussell"
 plugins=(git 
 		 zsh-autosuggestions 
 		 fzf
-		 zsh-syntax-highlighting
-		 history)
+		 zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-setopt share_history
-##############################################################################
-# History Configuration
-##############################################################################
-HISTSIZE=5000               #How many lines of history to keep in memory
-HISTFILE=~/.zsh_history     #Where to save history to disk
-SAVEHIST=5000               #Number of history entries to save to disk
-#HISTDUP=erase               #Erase duplicates in the history file
-setopt    appendhistory     #Append history to the history file (no overwriting)
-setopt    sharehistory      #Share history across terminals
-setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
-setopt APPEND_HISTORY
-setopt share_history
 
 # User configuration
 
@@ -161,13 +185,18 @@ setopt share_history
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="/usr/local/opt/helm@2/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+#[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+#[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/$USER/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/$USER/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/bhavaniravi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bhavaniravi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/$USER/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/$USER/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/bhavaniravi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bhavaniravi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 
+# START: Added by Airflow Breeze autocomplete setup
+#autoload compinit && compinit
+#autoload bashcompinit && bashcompinit
+#source ~/.bash_completion.d/breeze-complete
+# END: Added by Airflow Breeze autocomplete setup

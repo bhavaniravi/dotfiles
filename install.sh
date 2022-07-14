@@ -18,7 +18,7 @@ brew install --cask zoomus
 brew install --cask dbeaver-community
 brew install tmux
 brew install kubectl 
-brew install --cask obsidian
+brew install --cask logseq
 
 git config --global user.name "Bhavani Ravi"
 git config --global user.email bhava0895@gmail.com
